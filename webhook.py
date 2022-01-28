@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print(username)
     json_summary = JSONDecoder().decode(summary)
     print(json_summary["major"])
-    file = open(trace)
+    file = open(trace, "r")
     for line in file:
         print(line)
     file.close()
