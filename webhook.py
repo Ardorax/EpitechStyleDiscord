@@ -1,5 +1,6 @@
 import datetime
 import os
+import re
 import requests
 from json import JSONDecoder
 
@@ -32,8 +33,9 @@ if __name__ == "__main__":
     trace = os.environ["INPUT_TRACE"]
     url = os.environ["INPUT_URL"]
     username = os.environ["INPUT_USERNAME"]
-    color = os.environ["COLOR"]
-    desc = os.environ["DESCRIPTION"]
+    color = os.environ["INPUT_COLOR"]
+    desc = os.environ["INPUT_DESCRIPTION"]
+
     print(os.environ["GITHUB_REPOSITORY_OWNER"])
     json_summary = JSONDecoder().decode(summary)
     send_webhooks(json_summary, url, int(color), trace, username)

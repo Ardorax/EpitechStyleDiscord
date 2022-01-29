@@ -17,6 +17,12 @@ inputs:
   USERNAME:
     description: 'Username of the bot'
     required: true
+  DESCRIPTION:
+    description: 'message'
+    required: true
+  COLOR:
+    description: 'color of the embed'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
