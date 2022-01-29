@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
     print(os.environ["GITHUB_REPOSITORY_OWNER"])
     json_summary = JSONDecoder().decode(summary)
-    send_webhooks(json_summary, url, int(color), trace, username)
+    send_webhooks(json_summary, url, int(color), trace, desc, username)
