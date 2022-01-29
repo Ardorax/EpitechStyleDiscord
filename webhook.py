@@ -13,12 +13,12 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
     ]}
 
     # Send to Discord
-    response = requests.post(url, json=payload)
-    handle_response(response)
     file = open(file_path, "rb")
-    response = requests.post(url, data={}, files={'upload_file': file})
-    file.close()
+    response = requests.post(url, json=payload, files={'upload_file': file})
     handle_response(response)
+    # response = requests.post(url, data={}, files={'upload_file': file})
+    file.close()
+    # handle_response(response)
 
 def handle_response(response):
     print("Send Webhooks !")
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     username = os.environ["INPUT_USERNAME"]
     color = os.environ["INPUT_COLOR"]
     desc = os.environ["INPUT_DESCRIPTION"]
-
+    print(desc)
     print(os.environ["GITHUB_REPOSITORY_OWNER"])
     json_summary = JSONDecoder().decode(summary)
     send_webhooks(json_summary, url, int(color), trace, desc, username)
