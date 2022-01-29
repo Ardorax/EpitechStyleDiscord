@@ -14,6 +14,7 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
         }
     ]}
 
+    # Send to Discord
     response = requests.post(url, json=payload)
     handle_response(response)
     file = open(file_path, "rb")
