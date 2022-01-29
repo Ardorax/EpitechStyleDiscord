@@ -1,6 +1,4 @@
-import datetime
 import os
-import re
 import requests
 from json import JSONDecoder
 
