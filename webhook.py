@@ -4,8 +4,9 @@ from json import JSONDecoder
 
 def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
     name: str = "Normeur"):
-    payload = {"username": name, "description": desc , 'embeds': [
-        {"title": "Votre résultat de moulinette :", "color": color, "fields": [
+    payload = {"username": name, 'embeds': [
+        {"title": "Votre résultat de moulinette :", "color": color,
+        "description": desc, "fields": [
             {"name": "MAJOR", "value": Checker["major"], "inline": True},
             {"name": "MINOR", "value": Checker["minor"], "inline": True},
             {"name": "INFO", "value": Checker["info"], "inline": True}]
