@@ -1,8 +1,28 @@
 import datetime
-import json
 import os
 import requests
 from json import JSONDecoder
+
+def send_webhooks(Checker, url, color: int, file: str):
+    payload = {'embeds': [
+        {"title": "Votre résultat de moulinette :", "color": color, "fields": [
+            {"name": "MAJOR", "value": Checker.major, "inline": True},
+            {"name": "MINOR", "value": Checker.minor, "inline": True},
+            {"name": "INFO", "value": Checker.info, "inline": True}]
+        }
+    ]}
+
+    response = requests.post(url, json=payload)
+    handle_response(response)
+    response = requests.post(url, data={}, files={'upload_file': open(file, "rb")})
+    file.close()
+    handle_response(response)
+
+def handle_response(response):
+    print("Send Webhooks !")
+    if response.status_code >= 400:
+        print('Discord Webhook Action failed to execute webhook. Discord docs : https://discord.com/developers/docs/resources/webhook#execute-webhook')
+        exit(1)
 
 if __name__ == "__main__":
     summary = os.environ["INPUT_SUMMARY"]
@@ -14,8 +34,6 @@ if __name__ == "__main__":
     username = os.environ["INPUT_USERNAME"]
     print(username)
     json_summary = JSONDecoder().decode(summary)
-    print(json_summary["major"])
-    file = open(trace, "r")
-    for line in file:
-        print(line)
-    file.close()
+    color = os.environ["INPUT_COLOR"]
+    print(color)
+    send_webhooks(json_summary, url, int(color), trace)
