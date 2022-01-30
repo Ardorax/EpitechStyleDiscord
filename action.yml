@@ -11,7 +11,7 @@ inputs:
   SUMMARY:
     description: 'Summary of errors .. JSON format'
     required: true
-  TRACE:
+  FILES:
     description: 'trace file'
     required: true
   USERNAME:
