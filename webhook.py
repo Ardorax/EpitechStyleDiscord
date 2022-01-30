@@ -17,7 +17,7 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
     file = open(file_path, "rb")
     response = requests.post(url, json=payload)
     handle_response(response)
-    response = requests.post(url, data={"username": name}, files={'upload_file': file})
+    response = requests.post(url, data={"username": name}, files={'upload_file': file, 'upload_file': file})
     file.close()
     # handle_response(response)
 
