@@ -31,6 +31,7 @@ def create_files(file_path: str) -> dict:
         total = 10
     for i in range (total):
         result[files[i]] = open(files[i], "rb")
+    return result
 
 
 def handle_response(response):
