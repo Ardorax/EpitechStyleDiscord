@@ -14,12 +14,23 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
     ]}
 
     # Send to Discord
-    file = open(file_path, "rb")
+    files_list = create_files(file_path)
     response = requests.post(url, json=payload)
     handle_response(response)
-    response = requests.post(url, data={"username": name}, files={'upload_file': file, 'upload_file_ag': file})
-    file.close()
-    # handle_response(response)
+    response = requests.post(url, data={"username": name}, files=files_list)
+    handle_response(response)
+    for key in files_list:
+        files_list[key].close()
+
+def create_files(file_path: str) -> dict:
+    files = file_path.split(";")
+    total = len(files)
+    result = {}
+    if total > 10:
+        total = 10
+    for i in range (total):
+        result[files[i]] = open(files[i], "rb")
+
 
 def handle_response(response):
     print("Send Webhooks !")
