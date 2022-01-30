@@ -36,6 +36,10 @@ if __name__ == "__main__":
     color = os.environ["INPUT_COLOR"]
     desc = os.environ["INPUT_DESCRIPTION"]
     print(desc)
+    try:
+        print(os.environ["INPUT_FILES"])
+    except KeyError:
+        pass
     print(os.environ["GITHUB_REPOSITORY_OWNER"])
     json_summary = JSONDecoder().decode(summary)
     send_webhooks(json_summary, url, int(color), trace, desc, username)
