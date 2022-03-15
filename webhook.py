@@ -66,4 +66,4 @@ if __name__ == "__main__":
     except:
         pass
 
-    send_webhooks(json_summary, url, int(color), files, desc, username)
+    send_webhooks(json_summary, url, int(color), files, desc, line_coverage, branch_coverage, username)
