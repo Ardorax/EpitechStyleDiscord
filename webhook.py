@@ -62,8 +62,8 @@ if __name__ == "__main__":
     try:
         with open("./gcovr.json", "r") as file:
             data = json.load(file)
-            print("Data Load")
+            print("Coverage : Load ok")
     except:
-        pass
+        print("Coverage : error loading")
 
     send_webhooks(json_summary, url, int(color), files, desc, data, username)
