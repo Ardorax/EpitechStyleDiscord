@@ -12,7 +12,9 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
         {"name": "INFO", "value": Checker["info"], "inline": True}
     ]
 
-    """if coverage != None:
+    print("Test Coverage : " + coverage["line_percent"])
+
+    if coverage != None:
         fields.append({
             "name": "Line Coverage",
             "value": coverage["line_percent"],
@@ -22,7 +24,7 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
             "name": "Branch Coverage",
             "value": coverage["branch_percent"],
             "inline": True
-        })"""
+        })
 
     payload = {
         "username": name,
@@ -41,8 +43,8 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
     response = requests.post(url, json=payload)
     handle_response(response)
 
-    # response = requests.post(url, data={"username": name}, files=files_list)
-    # handle_response(response)
+    response = requests.post(url, data={"username": name}, files=files_list)
+    handle_response(response)
     for key in files_list:
         files_list[key].close()
 
