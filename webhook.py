@@ -15,6 +15,7 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
     # payload["embeds"][0]
     if coverage != None:
         payload["embeds"][0]["fields"].append({"name": "Line Coverage", "value": data["line_percent"], "inline": False})
+        payload["embeds"][0]["fields"].append({"name": "Branch Coverage", "value": data["branch_percent"], "inline": True})
 
     # Send to Discord
     files_list = create_files(file_path)
@@ -61,6 +62,7 @@ if __name__ == "__main__":
     try:
         with open("./gcovr.json", "r") as file:
             data = json.load(file)
+            print("Data Load")
     except:
         pass
 
