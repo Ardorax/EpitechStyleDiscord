@@ -15,12 +15,12 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
     if coverage != None:
         fields.append({
             "name": "Line Coverage",
-            "value": data["line_percent"],
+            "value": coverage["line_percent"],
             "inline": False
         })
         fields.append({
             "name": "Branch Coverage",
-            "value": data["branch_percent"],
+            "value": coverage["branch_percent"],
             "inline": True
         })
 
