@@ -4,25 +4,43 @@ import requests
 from json import JSONDecoder, load
 
 def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, name: str = "Normeur"):
-    payload = {"username": name, 'embeds': [
-        {"title": "Votre résultat de moulinette : ", "color": color,
-        "description": desc, "fields": [
-            {"name": "MAJOR", "value": Checker["major"], "inline": True},
-            {"name": "MINOR", "value": Checker["minor"], "inline": True},
-            {"name": "INFO", "value": Checker["info"], "inline": True}]
-        }
-    ]}
-    # payload["embeds"][0]
-    if coverage != None:
-        payload["embeds"][0]["fields"].append({"name": "Line Coverage", "value": data["line_percent"], "inline": False})
-        payload["embeds"][0]["fields"].append({"name": "Branch Coverage", "value": data["branch_percent"], "inline": True})
 
+    # Embed fiels
+    fields = [
+        {"name": "MAJOR", "value": Checker["major"], "inline": True},
+        {"name": "MINOR", "value": Checker["minor"], "inline": True},
+        {"name": "INFO", "value": Checker["info"], "inline": True}
+    ]
+
+    if coverage != None:
+        fields.append({
+            "name": "Line Coverage",
+            "value": data["line_percent"],
+            "inline": False
+        })
+        fields.append({
+            "name": "Branch Coverage",
+            "value": data["branch_percent"],
+            "inline": True
+        })
+
+    payload = {
+        "username": name,
+        'embeds': [
+            {"title": "Votre résultat de moulinette : ",
+            "color": color,
+            "description": desc,
+            "fields": fields}
+        ]
+    }
+
+    payload["embeds"][0]
     # Send to Discord
     files_list = create_files(file_path)
     print(files_list)
     response = requests.post(url, json=payload)
     handle_response(response)
-    
+
     # response = requests.post(url, data={"username": name}, files=files_list)
     # handle_response(response)
     for key in files_list:
