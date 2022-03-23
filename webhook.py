@@ -42,6 +42,7 @@ def handle_response(response):
     print("Send Webhooks !")
     if response.status_code >= 400:
         print('Discord Webhook Action failed to execute webhook. Discord docs : https://discord.com/developers/docs/resources/webhook#execute-webhook')
+        print(f"Discord error code : '{response.status_code}")
         exit(1)
 
 if __name__ == "__main__":
