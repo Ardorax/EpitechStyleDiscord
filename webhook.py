@@ -22,8 +22,8 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
     print(files_list)
     response = requests.post(url, json=payload)
     handle_response(response)
-    response = requests.post(url, data={"username": name}, files=files_list)
-    handle_response(response)
+    # response = requests.post(url, data={"username": name}, files=files_list)
+    # handle_response(response)
     for key in files_list:
         files_list[key].close()
 
