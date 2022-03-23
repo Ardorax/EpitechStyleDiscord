@@ -3,17 +3,18 @@ import os
 import requests
 from json import JSONDecoder, load
 
-def send_webhooks(Checker, url, color: int, file_path: str, desc: str,
-    line: int, branch: int, name: str = "Normeur"):
+def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, name: str = "Normeur"):
     payload = {"username": name, 'embeds': [
-        {"title": "Votre résultat de moulinette : " + str(line), "color": color,
+        {"title": "Votre résultat de moulinette : ", "color": color,
         "description": desc, "fields": [
             {"name": "MAJOR", "value": Checker["major"], "inline": True},
             {"name": "MINOR", "value": Checker["minor"], "inline": True},
             {"name": "INFO", "value": Checker["info"], "inline": True}]
         }
     ]}
-    payload["embeds"][0]
+    # payload["embeds"][0]
+    if coverage != None:
+        payload["embeds"][0]["fields"].append({"name": "Line Coverage", "value": data["line_percent"], "inline": False})
 
     # Send to Discord
     files_list = create_files(file_path)
@@ -54,16 +55,13 @@ if __name__ == "__main__":
     print(desc)
     print(os.environ["GITHUB_REPOSITORY_OWNER"])
     json_summary = JSONDecoder().decode(summary)
-    line_coverage = -1
-    branch_coverage = -1
+    data = None
 
     # Open gcovr file if exist
     try:
         with open("./gcovr.json", "r") as file:
             data = json.load(file)
-            line_coverage = data["line_percent"]
-            branch_coverage = data["branch_percent"]
     except:
         pass
 
-    send_webhooks(json_summary, url, int(color), files, desc, line_coverage, branch_coverage, username)
+    send_webhooks(json_summary, url, int(color), files, desc, data, username)
