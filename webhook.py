@@ -4,7 +4,6 @@ import requests
 from json import JSONDecoder, load
 
 def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, name: str = "Normeur"):
-
     # Embed fiels
     fields = [
         {"name": "MAJOR", "value": Checker["major"], "inline": True},
@@ -15,12 +14,12 @@ def send_webhooks(Checker, url, color: int, file_path: str, desc: str,coverage, 
     if coverage != None:
         fields.append({
             "name": "Line Coverage",
-            "value": "__" + str(coverage["line_percent"]) + "%__\n" + str(coverage["line_covered"]) + " / " + str(coverage["line_total"]),
+            "value": str(coverage["line_percent"]) + "%\n" + str(coverage["line_covered"]) + " / " + str(coverage["line_total"]),
             "inline": True
         })
         fields.append({
             "name": "Branch Coverage",
-            "value": "__" + str(coverage["branch_percent"]) + "%__\n" + str(coverage["branch_covered"]) + " / " + str(coverage["branch_total"]),
+            "value": str(coverage["branch_percent"]) + "%\n" + str(coverage["branch_covered"]) + " / " + str(coverage["branch_total"]),
             "inline": False
         })
 
